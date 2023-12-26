@@ -68,10 +68,12 @@ function backToStart() {
   document.getElementById("typingGameScreen").style.display = "none";
   document.getElementById("rockPaperScissorsScreen").style.display = "none";
   document.getElementById("rockPaperScissorsEndScreen").style.display = "none";
-  document.getElementById("gameScreen").style.display = "none"; // 追加した行
-  document.getElementById("endScreen").style.display = "none"; // 追加した行
+  document.getElementById("gameScreen").style.display = "none";
+  document.getElementById("endScreen").style.display = "none";
   document.getElementById("startScreen").style.display = "block";
   document.getElementById("userInput").value = '';
+  clearInterval(intervalId); // タイマーを停止
+  timer = 30; // タイマーをリセット
 }
 
 function startNumberGame() {
