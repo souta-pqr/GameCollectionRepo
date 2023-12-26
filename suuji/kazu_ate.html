@@ -42,14 +42,14 @@
   <button onclick="backToStart()">ゲーム選択に戻る</button> <!-- 追加したボタン -->
 </div>
 
-
 <div id="typingGameScreen" style="display: none;">
-    <h2>タイピングゲーム</h2>
-    <p id="wordToType"></p>
-    <input id="userInput" type="text" oninput="checkInput()" />
-    <button onclick="backToStart()">ゲーム選択に戻る</button> <!-- 追加したボタン -->
-  </div>
-  
+  <h2>タイピングゲーム</h2>
+  <p id="wordToType"></p>
+  <input id="userInput" type="text" oninput="checkInput()" />
+  <p id="score">スコア: 0</p> <!-- 追加した行 -->
+  <p id="timer">残り時間: 30</p> <!-- 追加した行 -->
+  <button onclick="backToStart()">ゲーム選択に戻る</button>
+</div>
 
 <script>
 var numberToGuess = Math.floor(Math.random() * 100) + 1;
@@ -148,19 +148,40 @@ function restartRockPaperScissors() {
   document.getElementById("rockPaperScissorsScreen").style.display = "block";
 }
 
+var score = 0; // 追加した行
+var timer = 30; // 追加した行
+var intervalId; // 追加した行
+
 function startTypingGame() {
   document.getElementById("startScreen").style.display = "none";
   document.getElementById("typingGameScreen").style.display = "block";
   currentWord = words[Math.floor(Math.random() * words.length)];
   document.getElementById("wordToType").innerHTML = currentWord;
+  score = 0;
+  timer = 30;
+  document.getElementById("score").innerHTML = "スコア: " + score;
+  document.getElementById("timer").innerHTML = "残り時間: " + timer;
+  intervalId = setInterval(updateTimer, 1000); // 追加した行
 }
 
 function checkInput() {
   var userInput = document.getElementById("userInput").value;
   if(userInput === currentWord) {
-    alert('おめでとうございます！正解です！');
+    score++;
+    document.getElementById("score").innerHTML = "スコア: " + score;
     document.getElementById("userInput").value = '';
-    startTypingGame();
+    currentWord = words[Math.floor(Math.random() * words.length)];
+    document.getElementById("wordToType").innerHTML = currentWord;
+  }
+}
+
+function updateTimer() { // 追加した行
+  timer--;
+  document.getElementById("timer").innerHTML = "残り時間: " + timer;
+  if(timer <= 0) {
+    clearInterval(intervalId);
+    alert('時間切れ！あなたのスコアは ' + score + ' です！');
+    backToStart();
   }
 }
 </script>
