@@ -1,10 +1,26 @@
 body {
   font-family: 'Arial', sans-serif;
   font-size: 20px;
+  background-color: #f4f4f4; /* 背景色を追加 */
+  color: #333; /* テキストの色を追加 */
 }
 
 h2 {
   font-size: 30px;
+  color: #444; /* 見出しの色を少し暗くする */
+}
+
+button {
+  background-color: #4CAF50; /* ボタンの背景色を追加 */
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
 }
 
 #startScreen {
