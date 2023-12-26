@@ -1,0 +1,16 @@
+body {
+  font-family: 'Arial', sans-serif;
+  font-size: 20px;
+}
+
+h2 {
+  font-size: 30px;
+}
+
+#gameScreen {
+  display: none;
+}
+
+#endScreen {
+  display: none;
+}
