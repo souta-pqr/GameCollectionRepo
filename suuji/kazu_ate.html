@@ -5,9 +5,9 @@
 </head>
 <body>
 <div id="startScreen">
-  <h2>数当てゲーム</h2>
-  <p>1から100までの数を当ててみてください。</p>
-  <button onclick="startGame()">ゲームスタート！</button>
+  <h2>ゲーム選択</h2>
+  <button onclick="startNumberGame()">数当てゲームを始める</button>
+  <button onclick="startRockPaperScissors()">ジャンケンゲームを始める</button>
 </div>
 
 <div id="gameScreen">
@@ -15,7 +15,7 @@
   <p id="demo"></p>
   <p id="history">前回の予想: なし</p>
   <p id="remaining">残り回数: 10</p>
-  <button id="playButton" onclick="playGame()">予想する</button>
+  <button id="playButton" style="display: none;" onclick="playNumberGame()">予想する</button>
 </div>
 
 <div id="endScreen">
@@ -24,18 +24,33 @@
   <button onclick="restartGame()">もう一度プレイ</button>
 </div>
 
+<div id="rockPaperScissorsScreen">
+  <h2>ジャンケンゲーム</h2>
+  <p id="rpsDemo">あなたの手を選んでください。</p>
+  <button id="rockButton" style="display: none;" onclick="playRockPaperScissors('rock')">グー</button>
+  <button id="paperButton" style="display: none;" onclick="playRockPaperScissors('paper')">パー</button>
+  <button id="scissorsButton" style="display: none;" onclick="playRockPaperScissors('scissors')">チョキ</button>
+</div>
+
+<div id="rockPaperScissorsEndScreen">
+  <h2>ゲーム終了</h2>
+  <p id="rpsResult"></p>
+  <button onclick="restartRockPaperScissors()">もう一度プレイ</button>
+</div>
+
 <script>
 var numberToGuess = Math.floor(Math.random() * 100) + 1;
 var lastGuess = null;
 var remainingGuesses = 10;
 
-function startGame() {
+function startNumberGame() {
   document.getElementById("startScreen").style.display = "none";
   document.getElementById("gameScreen").style.display = "block";
+  document.getElementById("playButton").style.display = "block";
   document.getElementById("demo").innerHTML = "あなたの予想は？";
 }
 
-function playGame() {
+function playNumberGame() {
   var userGuess = prompt("あなたの予想は？");
   if(isNaN(userGuess) || userGuess < 1 || userGuess > 100) {
     document.getElementById("demo").innerHTML = "入力は1から100の半角数字でお願いします。";
@@ -70,6 +85,35 @@ function restartGame() {
   document.getElementById("history").innerHTML = "前回の予想: なし";
   document.getElementById("remaining").innerHTML = "残り回数: 10";
   document.getElementById("endScreen").style.display = "none";
+  document.getElementById("startScreen").style.display = "block";
+}
+
+function startRockPaperScissors() {
+  document.getElementById("startScreen").style.display = "none";
+  document.getElementById("rockPaperScissorsScreen").style.display = "block";
+  document.getElementById("rockButton").style.display = "block";
+  document.getElementById("paperButton").style.display = "block";
+  document.getElementById("scissorsButton").style.display = "block";
+  document.getElementById("rpsDemo").innerHTML = "あなたの手を選んでください。";
+}
+
+function playRockPaperScissors(userChoice) {
+  var choices = ['rock', 'paper', 'scissors'];
+  var computerChoice = choices[Math.floor(Math.random() * 3)];
+  if(userChoice === computerChoice) {
+    document.getElementById("rpsDemo").innerHTML = "引き分け！コンピュータの手は " + computerChoice + " でした。";
+  } else if((userChoice === 'rock' && computerChoice === 'scissors') || (userChoice === 'scissors' && computerChoice === 'paper') || (userChoice === 'paper' && computerChoice === 'rock')) {
+    document.getElementById("rpsDemo").innerHTML = "おめでとうございます！あなたの勝ちです！コンピュータの手は " + computerChoice + " でした。";
+  } else {
+    document.getElementById("rpsDemo").innerHTML = "残念、あなたの負けです。コンピュータの手は " + computerChoice + " でした。";
+  }
+  document.getElementById("rpsResult").innerHTML = document.getElementById("rpsDemo").innerHTML;
+  document.getElementById("rockPaperScissorsScreen").style.display = "none";
+  document.getElementById("rockPaperScissorsEndScreen").style.display = "block";
+}
+
+function restartRockPaperScissors() {
+  document.getElementById("rockPaperScissorsEndScreen").style.display = "none";
   document.getElementById("startScreen").style.display = "block";
 }
 </script>

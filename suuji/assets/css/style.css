@@ -7,10 +7,10 @@ h2 {
   font-size: 30px;
 }
 
-#gameScreen {
-  display: none;
+#startScreen {
+  display: block;
 }
 
-#endScreen {
+#gameScreen, #endScreen, #rockPaperScissorsScreen, #rockPaperScissorsEndScreen {
   display: none;
 }
