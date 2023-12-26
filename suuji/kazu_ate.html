@@ -8,6 +8,7 @@
   <h2>ゲーム選択</h2>
   <button onclick="startNumberGame()">数当てゲームを始める</button>
   <button onclick="startRockPaperScissors()">ジャンケンゲームを始める</button>
+  <button onclick="startTypingGame()">タイピングゲームを始める</button>
 </div>
 
 <div id="gameScreen">
@@ -39,6 +40,12 @@
   <button onclick="restartRockPaperScissors()">もう一度プレイ</button>
 </div>
 
+<div id="typingGameScreen" style="display: none;">
+  <h2>タイピングゲーム</h2>
+  <p id="wordToType"></p>
+  <input id="userInput" type="text" oninput="checkInput()" />
+</div>
+
 <script>
 var numberToGuess = Math.floor(Math.random() * 100) + 1;
 var lastGuess = null;
@@ -49,6 +56,8 @@ var images = {
   'scissors': './assets/data/janken_choki.png',
   'paper': './assets/data/janken_pa.png'
 };
+var words = ['apple', 'banana', 'cherry', 'date', 'elderberry'];
+var currentWord = '';
 
 function startNumberGame() {
   document.getElementById("startScreen").style.display = "none";
@@ -122,6 +131,22 @@ function playRockPaperScissors(userChoice) {
 function restartRockPaperScissors() {
   document.getElementById("rockPaperScissorsEndScreen").style.display = "none";
   document.getElementById("startScreen").style.display = "block";
+}
+
+function startTypingGame() {
+  document.getElementById("startScreen").style.display = "none";
+  document.getElementById("typingGameScreen").style.display = "block";
+  currentWord = words[Math.floor(Math.random() * words.length)];
+  document.getElementById("wordToType").innerHTML = currentWord;
+}
+
+function checkInput() {
+  var userInput = document.getElementById("userInput").value;
+  if(userInput === currentWord) {
+    alert('おめでとうございます！正解です！');
+    document.getElementById("userInput").value = '';
+    startTypingGame();
+  }
 }
 </script>
 
