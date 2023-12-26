@@ -74,6 +74,10 @@ function backToStart() {
   document.getElementById("userInput").value = '';
   clearInterval(intervalId); // タイマーを停止
   timer = 30; // タイマーをリセット
+  remainingGuesses = 10; // 数当てゲームの制限回数をリセット
+  document.getElementById("remaining").innerHTML = "残り回数: " + remainingGuesses;
+  lastGuess = null; // 前回の予想をリセット
+  document.getElementById("history").innerHTML = "前回の予想: なし"; // 追加した行
 }
 
 function startNumberGame() {
@@ -103,7 +107,7 @@ function playNumberGame() {
   } else if(userGuess > numberToGuess) {
     document.getElementById("demo").innerHTML = "もっと小さい数です。";
   }
-  if(remainingGuesses <= 0) {
+  if(remainingGuesses <= 0 && userGuess != numberToGuess) { // 追加した行
     document.getElementById("demo").innerHTML = "ゲームオーバー！";
     document.getElementById("result").innerHTML = "ゲームオーバー！正解は " + numberToGuess + " でした。";
     document.getElementById("gameScreen").style.display = "none";
@@ -119,6 +123,7 @@ function restartGame() {
   document.getElementById("remaining").innerHTML = "残り回数: 10";
   document.getElementById("endScreen").style.display = "none";
   document.getElementById("gameScreen").style.display = "block";
+  document.getElementById("demo").innerHTML = "あなたの予想は？"; // 追加した行
 }
 
 function startRockPaperScissors() {
