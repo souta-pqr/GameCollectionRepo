@@ -1,18 +1,27 @@
 <!DOCTYPE html>
 <html>
+<head>
+<link rel="stylesheet" type="text/css" href="style.css">
+</head>
 <body>
 <h2>数当てゲーム</h2>
 <p id="demo">1から100までの数を当ててみてください。</p>
+<p id="history">前回の予想: なし</p>
 
-<button onclick="playGame()">ゲームスタート！</button>
+<button id="startButton" onclick="playGame()">ゲームスタート！</button>
 
 <script>
 var numberToGuess = Math.floor(Math.random() * 100) + 1;
+var lastGuess = null;
 
 function playGame() {
   var userGuess = prompt("あなたの予想は？");
+  lastGuess = userGuess;
+  document.getElementById("history").innerHTML = "前回の予想: " + lastGuess;
   if(userGuess == numberToGuess) {
     document.getElementById("demo").innerHTML = "おめでとうございます！正解です！";
+    document.getElementById("startButton").innerHTML = "もう一度プレイ";
+    numberToGuess = Math.floor(Math.random() * 100) + 1;
   } else if(userGuess < numberToGuess) {
     document.getElementById("demo").innerHTML = "もっと大きい数です。";
   } else if(userGuess > numberToGuess) {
