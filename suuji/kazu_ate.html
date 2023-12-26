@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<body>
+<h2>数当てゲーム</h2>
+<p id="demo">1から100までの数を当ててみてください。</p>
+
+<button onclick="playGame()">ゲームスタート！</button>
+
+<script>
+var numberToGuess = Math.floor(Math.random() * 100) + 1;
+
+function playGame() {
+  var userGuess = prompt("あなたの予想は？");
+  if(userGuess == numberToGuess) {
+    document.getElementById("demo").innerHTML = "おめでとうございます！正解です！";
+  } else if(userGuess < numberToGuess) {
+    document.getElementById("demo").innerHTML = "もっと大きい数です。";
+  } else if(userGuess > numberToGuess) {
+    document.getElementById("demo").innerHTML = "もっと小さい数です。";
+  }
+}
+</script>
+
+</body>
+</html>
