@@ -41,10 +41,12 @@
 </div>
 
 <div id="typingGameScreen" style="display: none;">
-  <h2>タイピングゲーム</h2>
-  <p id="wordToType"></p>
-  <input id="userInput" type="text" oninput="checkInput()" />
-</div>
+    <h2>タイピングゲーム</h2>
+    <p id="wordToType"></p>
+    <input id="userInput" type="text" oninput="checkInput()" />
+    <button onclick="backToStart()">ゲーム選択に戻る</button> <!-- 追加したボタン -->
+  </div>
+  
 
 <script>
 var numberToGuess = Math.floor(Math.random() * 100) + 1;
@@ -56,8 +58,14 @@ var images = {
   'scissors': './assets/data/janken_choki.png',
   'paper': './assets/data/janken_pa.png'
 };
-var words = ['apple', 'banana', 'cherry', 'date', 'elderberry'];
+var words = ['apple', 'banana', 'cherry', 'date', 'elderberry', 'fig', 'grape', 'honeydew', 'kiwi', 'lemon', 'mango', 'nectarine', 'orange', 'peach', 'plum', 'quince', 'raspberry', 'strawberry', 'tangerine', 'watermelon', 'xigua', 'yuzu', 'zucchini'];
 var currentWord = '';
+
+function backToStart() {
+  document.getElementById("typingGameScreen").style.display = "none";
+  document.getElementById("startScreen").style.display = "block";
+  document.getElementById("userInput").value = '';
+}
 
 function startNumberGame() {
   document.getElementById("startScreen").style.display = "none";
