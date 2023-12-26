@@ -23,6 +23,7 @@
   <h2>ゲーム終了</h2>
   <p id="result"></p>
   <button onclick="restartGame()">もう一度プレイ</button>
+  <button onclick="backToStart()">ゲーム選択に戻る</button> <!-- 追加したボタン -->
 </div>
 
 <div id="rockPaperScissorsScreen">
@@ -38,7 +39,9 @@
   <p id="rpsResult"></p>
   <img id="rpsImage" src="" alt="Computer's choice" width="100" height="100">
   <button onclick="restartRockPaperScissors()">もう一度プレイ</button>
+  <button onclick="backToStart()">ゲーム選択に戻る</button> <!-- 追加したボタン -->
 </div>
+
 
 <div id="typingGameScreen" style="display: none;">
     <h2>タイピングゲーム</h2>
@@ -63,6 +66,10 @@ var currentWord = '';
 
 function backToStart() {
   document.getElementById("typingGameScreen").style.display = "none";
+  document.getElementById("rockPaperScissorsScreen").style.display = "none";
+  document.getElementById("rockPaperScissorsEndScreen").style.display = "none";
+  document.getElementById("gameScreen").style.display = "none"; // 追加した行
+  document.getElementById("endScreen").style.display = "none"; // 追加した行
   document.getElementById("startScreen").style.display = "block";
   document.getElementById("userInput").value = '';
 }
@@ -109,7 +116,7 @@ function restartGame() {
   document.getElementById("history").innerHTML = "前回の予想: なし";
   document.getElementById("remaining").innerHTML = "残り回数: 10";
   document.getElementById("endScreen").style.display = "none";
-  document.getElementById("startScreen").style.display = "block";
+  document.getElementById("gameScreen").style.display = "block";
 }
 
 function startRockPaperScissors() {
@@ -138,7 +145,7 @@ function playRockPaperScissors(userChoice) {
 
 function restartRockPaperScissors() {
   document.getElementById("rockPaperScissorsEndScreen").style.display = "none";
-  document.getElementById("startScreen").style.display = "block";
+  document.getElementById("rockPaperScissorsScreen").style.display = "block";
 }
 
 function startTypingGame() {
