@@ -71,12 +71,14 @@ var images = {
 var words = ['apple', 'banana', 'cherry', 'date', 'elderberry', 'fig', 'grape', 'honeydew', 'kiwi', 'lemon', 'mango', 'nectarine', 'orange', 'peach', 'plum', 'quince', 'raspberry', 'strawberry', 'tangerine', 'watermelon', 'xigua', 'yuzu', 'zucchini'];
 var currentWord = '';
 
+// ゲーム選択画面に戻る関数
 function backToStart() {
   document.getElementById("typingGameScreen").style.display = "none";
   document.getElementById("rockPaperScissorsScreen").style.display = "none";
   document.getElementById("rockPaperScissorsEndScreen").style.display = "none";
   document.getElementById("gameScreen").style.display = "none";
   document.getElementById("endScreen").style.display = "none";
+  document.getElementById("blockGameScreen").style.display = "none";  // ブロック崩しゲームの画面を非表示にする
   document.getElementById("startScreen").style.display = "block";
   document.getElementById("userInput").value = '';
   clearInterval(intervalId); // タイマーを停止
@@ -85,6 +87,7 @@ function backToStart() {
   document.getElementById("remaining").innerHTML = "残り回数: " + remainingGuesses;
   lastGuess = null; // 前回の予想をリセット
   document.getElementById("history").innerHTML = "前回の予想: なし"; // 追加した行
+  clearInterval(interval);  // 既存のsetIntervalをクリア
 }
 
 function startNumberGame() {
@@ -239,9 +242,25 @@ for(var c=0; c<brickColumnCount; c++) {
 
 // ブロック崩しゲームを開始する関数
 function startBlockGame() {
+  // ゲームの状態をリセット
+  isGameOver = false;
+  x = canvas.width/2;
+  y = canvas.height-30;
+  dx = 2;  // ボールのx方向の速度をリセット
+  dy = -2;  // ボールのy方向の速度をリセット
+  paddleX = (canvas.width-paddleWidth)/2;
+  rightPressed = false;
+  leftPressed = false;
+  // ブロックの配列をリセット
+  for(var c=0; c<brickColumnCount; c++) {
+    for(var r=0; r<brickRowCount; r++) {
+      bricks[c][r] = { x: 0, y: 0, status: 1 };
+    }
+  }
+
   document.getElementById("startScreen").style.display = "none";
   document.getElementById("blockGameScreen").style.display = "block";
-  setInterval(draw, 10);  // 10ミリ秒ごとにdraw関数を呼び出す
+  interval = setInterval(draw, 10);  // 10ミリ秒ごとにdraw関数を呼び出す
 }
 
 // ブロックを描画する関数
