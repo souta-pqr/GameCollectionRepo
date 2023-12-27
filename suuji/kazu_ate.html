@@ -263,13 +263,19 @@ function drawBricks() {
   }
 }
 
+// ゲームの状態を管理する変数
+var isGameOver = false;
+
 // ブロック崩しゲームの描画関数
 function draw() {
+  if (isGameOver) return;  // ゲームオーバーなら描画を停止
+
   ctx.clearRect(0, 0, canvas.width, canvas.height);
-  drawBricks();  // ブロックを描画
+  drawBricks();
   drawBall();
   drawPaddle();
-  collisionDetection();  // ブロックとボールの衝突を検出
+  collisionDetection();
+
   if(x + dx > canvas.width-ballRadius || x + dx < ballRadius) {
     dx = -dx;
     ballColor = getRandomColor();  // 壁に当たったら色を変える
@@ -277,21 +283,20 @@ function draw() {
   if(y + dy < ballRadius) {
     dy = -dy;
     ballColor = getRandomColor();  // 壁に当たったら色を変える
-  }
-  else if(y + dy > canvas.height-ballRadius) {
+  } else if(y + dy > canvas.height-ballRadius) {
     if(x > paddleX && x < paddleX + paddleWidth) {
       dy = -dy;
       ballColor = getRandomColor();  // パドルに当たったら色を変える
-    }
-    else {
+    } else {
+      isGameOver = true;  // ゲームオーバーをtrueに設定
+      alert("GAME OVER");  // ゲームオーバーのアラートを表示
       document.location.reload();
-      clearInterval(interval); // Needed for Chrome to end game
+      clearInterval(interval); // ゲームが終了したらsetIntervalをクリア
     }
   }
   if(rightPressed && paddleX < canvas.width-paddleWidth) {
     paddleX += 7;
-  }
-  else if(leftPressed && paddleX > 0) {
+  } else if(leftPressed && paddleX > 0) {
     paddleX -= 7;
   }
   x += dx;
