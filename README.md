@@ -1,4 +1,4 @@
-#プレイ方法
+# プレイ方法
 
 [こちら](https://souta-pqr.github.io/tetris/suuji/main.html)をクリックしてください。
 
