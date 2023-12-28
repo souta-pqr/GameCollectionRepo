@@ -1,3 +1,16 @@
+function backToStart() {
+    document.getElementById("typingGameScreen").style.display = "none";
+    document.getElementById("gameScreen").style.display = "none";
+    document.getElementById("endScreen").style.display = "none";
+    document.getElementById("startScreen").style.display = "block";
+    document.getElementById("userInput").value = '';
+    clearInterval(intervalId);
+    timer = 30; 
+    clearInterval(interval); 
+}
+
+var words = ['apple', 'banana', 'cherry', 'date', 'elderberry', 'fig', 'grape', 'honeydew', 'kiwi', 'lemon', 'mango', 'nectarine', 'orange', 'peach', 'plum', 'quince', 'raspberry', 'strawberry', 'tangerine', 'watermelon', 'xigua', 'yuzu', 'zucchini'];
+var currentWord = '';
 var score = 0;
 var timer = 30;
 var intervalId;
@@ -22,5 +35,15 @@ function checkInput() {
     document.getElementById("userInput").value = '';
     currentWord = words[Math.floor(Math.random() * words.length)];
     document.getElementById("wordToType").innerHTML = currentWord;
+  }
+}
+
+function updateTimer() {
+  timer--;
+  document.getElementById("timer").innerHTML = "残り時間: " + timer;
+  if(timer <= 0) {
+    clearInterval(intervalId);
+    alert('時間切れ！あなたのスコアは ' + score + ' です！');
+    backToStart();
   }
 }
