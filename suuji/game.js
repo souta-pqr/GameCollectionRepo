@@ -1,0 +1,345 @@
+// game.js
+
+var numberToGuess = Math.floor(Math.random() * 100) + 1;
+var lastGuess = null;
+var remainingGuesses = 10;
+var choices = ['rock', 'scissors', 'paper'];
+var images = {
+  'rock': './assets/data/janken_gu.png',
+  'scissors': './assets/data/janken_choki.png',
+  'paper': './assets/data/janken_pa.png'
+};
+var words = ['apple', 'banana', 'cherry', 'date', 'elderberry', 'fig', 'grape', 'honeydew', 'kiwi', 'lemon', 'mango', 'nectarine', 'orange', 'peach', 'plum', 'quince', 'raspberry', 'strawberry', 'tangerine', 'watermelon', 'xigua', 'yuzu', 'zucchini'];
+var currentWord = '';
+
+// ゲーム選択画面に戻る関数
+function backToStart() {
+  document.getElementById("typingGameScreen").style.display = "none";
+  document.getElementById("rockPaperScissorsScreen").style.display = "none";
+  document.getElementById("rockPaperScissorsEndScreen").style.display = "none";
+  document.getElementById("gameScreen").style.display = "none";
+  document.getElementById("endScreen").style.display = "none";
+  document.getElementById("blockGameScreen").style.display = "none";
+  document.getElementById("startScreen").style.display = "block";
+  document.getElementById("userInput").value = '';
+  clearInterval(intervalId);
+  timer = 30;
+  remainingGuesses = 10;
+  document.getElementById("remaining").innerHTML = "残り回数: " + remainingGuesses;
+  lastGuess = null;
+  document.getElementById("history").innerHTML = "前回の予想: なし";
+  clearInterval(interval);
+}
+
+function startNumberGame() {
+  document.getElementById("startScreen").style.display = "none";
+  document.getElementById("gameScreen").style.display = "block";
+  document.getElementById("playButton").style.display = "block";
+  document.getElementById("demo").innerHTML = "あなたの予想は？";
+}
+
+function playNumberGame() {
+  var userGuess = prompt("あなたの予想は？");
+  if(isNaN(userGuess) || userGuess < 1 || userGuess > 100) {
+    document.getElementById("demo").innerHTML = "入力は1から100の半角数字でお願いします。";
+    return;
+  }
+  lastGuess = userGuess;
+  document.getElementById("history").innerHTML = "前回の予想: " + lastGuess;
+  remainingGuesses--;
+  document.getElementById("remaining").innerHTML = "残り回数: " + remainingGuesses;
+  if(userGuess == numberToGuess) {
+    document.getElementById("demo").innerHTML = "おめでとうございます！正解です！";
+    document.getElementById("result").innerHTML = "おめでとうございます！正解です！";
+    document.getElementById("gameScreen").style.display = "none";
+    document.getElementById("endScreen").style.display = "block";
+  } else if(userGuess < numberToGuess) {
+    document.getElementById("demo").innerHTML = "もっと大きい数です。";
+  } else if(userGuess > numberToGuess) {
+    document.getElementById("demo").innerHTML = "もっと小さい数です。";
+  }
+  if(remainingGuesses <= 0 && userGuess != numberToGuess) {
+    document.getElementById("demo").innerHTML = "ゲームオーバー！";
+    document.getElementById("result").innerHTML = "ゲームオーバー！正解は " + numberToGuess + " でした。";
+    document.getElementById("gameScreen").style.display = "none";
+    document.getElementById("endScreen").style.display = "block";
+  }
+}
+
+function restartGame() {
+  numberToGuess = Math.floor(Math.random() * 100) + 1;
+  lastGuess = null;
+  remainingGuesses = 10;
+  document.getElementById("history").innerHTML = "前回の予想: なし";
+  document.getElementById("remaining").innerHTML = "残り回数: 10";
+  document.getElementById("endScreen").style.display = "none";
+  document.getElementById("gameScreen").style.display = "block";
+  document.getElementById("demo").innerHTML = "あなたの予想は？";
+}
+
+function startRockPaperScissors() {
+  document.getElementById("startScreen").style.display = "none";
+  document.getElementById("rockPaperScissorsScreen").style.display = "block";
+  document.getElementById("rockButton").style.display = "block";
+  document.getElementById("paperButton").style.display = "block";
+  document.getElementById("scissorsButton").style.display = "block";
+  document.getElementById("rpsDemo").innerHTML = "あなたの手を選んでください。";
+}
+
+function playRockPaperScissors(userChoice) {
+    var computerChoice = choices[Math.floor(Math.random() * 3)];
+    document.getElementById("rpsImage").src = images[computerChoice];
+    if(userChoice === computerChoice) {
+      document.getElementById("rpsDemo").innerHTML = "引き分け！あなたは " + userChoice + "、コンピュータの手は " + computerChoice + " でした。";
+    } else if((userChoice === 'rock' && computerChoice === 'scissors') || (userChoice === 'scissors' && computerChoice === 'paper') || (userChoice === 'paper' && computerChoice === 'rock')) {
+      document.getElementById("rpsDemo").innerHTML = "おめでとうございます！あなたの勝ちです！あなたは " + userChoice + "、コンピュータの手は " + computerChoice + " でした。";
+    } else {
+      document.getElementById("rpsDemo").innerHTML = "残念、あなたの負けです。あなたは " + userChoice + "、コンピュータの手は " + computerChoice + " でした。";
+    }
+    document.getElementById("rpsResult").innerHTML = document.getElementById("rpsDemo").innerHTML;
+    document.getElementById("rockPaperScissorsScreen").style.display = "none";
+    document.getElementById("rockPaperScissorsEndScreen").style.display = "block";
+  }
+  
+  function restartRockPaperScissors() {
+    document.getElementById("rockPaperScissorsEndScreen").style.display = "none";
+    document.getElementById("rockPaperScissorsScreen").style.display = "block";
+    document.getElementById("rpsDemo").innerHTML = "あなたの手を選んでください。"; // 追加した行
+  }
+
+var score = 0; // 追加した行
+var timer = 30; // 追加した行
+var intervalId; // 追加した行
+
+function startTypingGame() {
+  document.getElementById("startScreen").style.display = "none";
+  document.getElementById("typingGameScreen").style.display = "block";
+  currentWord = words[Math.floor(Math.random() * words.length)];
+  document.getElementById("wordToType").innerHTML = currentWord;
+  score = 0;
+  timer = 30;
+  document.getElementById("score").innerHTML = "スコア: " + score;
+  document.getElementById("timer").innerHTML = "残り時間: " + timer;
+  intervalId = setInterval(updateTimer, 1000); // 追加した行
+}
+
+function checkInput() {
+    var userInput = document.getElementById("userInput").value;
+    if(userInput === currentWord) {
+      score++;
+      document.getElementById("score").innerHTML = "スコア: " + score;
+      document.getElementById("userInput").value = '';
+      currentWord = words[Math.floor(Math.random() * words.length)];
+      document.getElementById("wordToType").innerHTML = currentWord;
+    }
+  }
+
+function updateTimer() { // 追加した行
+    timer--;
+    document.getElementById("timer").innerHTML = "残り時間: " + timer;
+    if(timer <= 0) {
+      clearInterval(intervalId);
+      alert('時間切れ！あなたのスコアは ' + score + ' です！');
+      backToStart();
+    }
+  }
+
+// ブロック崩しゲームの変数
+var canvas = document.getElementById("blockGameCanvas");
+var ctx = canvas.getContext("2d");
+var ballRadius = 10;
+var x = canvas.width/2;
+var y = canvas.height-30;
+var dx = 2;
+var dy = -2;
+var paddleHeight = 10;
+var paddleWidth = 75;
+var paddleX = (canvas.width-paddleWidth)/2;
+var rightPressed = false;
+var leftPressed = false;
+
+// ブロックの設定
+var brickRowCount = 3;
+var brickColumnCount = 5;
+var brickWidth = 75;
+var brickHeight = 20;
+var brickPadding = 10;
+var brickOffsetTop = 30;
+var brickOffsetLeft = 30;
+
+// ボールの色
+var ballColor = "#0095DD";
+
+// ブロックの配列を作成
+var bricks = [];
+for(var c=0; c<brickColumnCount; c++) {
+  bricks[c] = [];
+  for(var r=0; r<brickRowCount; r++) {
+    bricks[c][r] = { x: 0, y: 0, status: 1 };
+  }
+}
+
+// ブロック崩しゲームを開始する関数
+function startBlockGame() {
+    // ゲームの状態をリセット
+    isGameOver = false;
+    x = canvas.width/2;
+    y = canvas.height-30;
+    dx = 2;  // ボールのx方向の速度をリセット
+    dy = -2;  // ボールのy方向の速度をリセット
+    paddleX = (canvas.width-paddleWidth)/2;
+    rightPressed = false;
+    leftPressed = false;
+    // ブロックの配列をリセット
+    for(var c=0; c<brickColumnCount; c++) {
+      for(var r=0; r<brickRowCount; r++) {
+        bricks[c][r] = { x: 0, y: 0, status: 1 };
+      }
+    }
+  
+    document.getElementById("startScreen").style.display = "none";
+    document.getElementById("blockGameScreen").style.display = "block";
+    interval = setInterval(draw, 10);  // 10ミリ秒ごとにdraw関数を呼び出す
+  }
+
+// ブロックを描画する関数
+function drawBricks() {
+    for(var c=0; c<brickColumnCount; c++) {
+      for(var r=0; r<brickRowCount; r++) {
+        if(bricks[c][r].status == 1) {
+          var brickX = (c*(brickWidth+brickPadding))+brickOffsetLeft;
+          var brickY = (r*(brickHeight+brickPadding))+brickOffsetTop;
+          bricks[c][r].x = brickX;
+          bricks[c][r].y = brickY;
+          ctx.beginPath();
+          ctx.rect(brickX, brickY, brickWidth, brickHeight);
+          ctx.fillStyle = "#0095DD";
+          ctx.fill();
+          ctx.closePath();
+        }
+      }
+    }
+  }
+
+// ゲームの状態を管理する変数
+var isGameOver = false;
+
+// ブロック崩しゲームの描画関数
+function draw() {
+    if (isGameOver) return;  // ゲームオーバーなら描画を停止
+  
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    drawBricks();
+    drawBall();
+    drawPaddle();
+    collisionDetection();
+  
+    if(x + dx > canvas.width-ballRadius || x + dx < ballRadius) {
+      dx = -dx;
+      ballColor = getRandomColor();  // 壁に当たったら色を変える
+    }
+    if(y + dy < ballRadius) {
+      dy = -dy;
+      ballColor = getRandomColor();  // 壁に当たったら色を変える
+    } else if(y + dy > canvas.height-ballRadius) {
+      if(x > paddleX && x < paddleX + paddleWidth) {
+        dy = -dy;
+        ballColor = getRandomColor();  // パドルに当たったら色を変える
+      } else {
+        isGameOver = true;  // ゲームオーバーをtrueに設定
+        alert("GAME OVER");  // ゲームオーバーのアラートを表示
+        document.location.reload();
+        clearInterval(interval); // ゲームが終了したらsetIntervalをクリア
+      }
+    }
+    if(rightPressed && paddleX < canvas.width-paddleWidth) {
+      paddleX += 7;
+    } else if(leftPressed && paddleX > 0) {
+      paddleX -= 7;
+    }
+    x += dx;
+    y += dy;
+  }
+
+// ボールを描画する関数
+function drawBall() {
+    ctx.beginPath();
+    ctx.arc(x, y, ballRadius, 0, Math.PI*2);
+    ctx.fillStyle = ballColor;
+    ctx.fill();
+    ctx.closePath();
+}
+
+// ランダムな色を生成する関数
+function getRandomColor() {
+    var letters = '0123456789ABCDEF';
+    var color = '#';
+    for (var i = 0; i < 6; i++) {
+      color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
+  }
+// ブロックとボールの衝突を検出する関数
+function collisionDetection() {
+    for(var c=0; c<brickColumnCount; c++) {
+      for(var r=0; r<brickRowCount; r++) {
+        var b = bricks[c][r];
+        if(b.status == 1) {
+          if(x > b.x && x < b.x+brickWidth && y > b.y && y < b.y+brickHeight) {
+            dy = -dy;
+            b.status = 0;
+            // ブロックがすべて消えたらゲームクリア
+            if(isGameClear()) {
+              alert("GAME CLEAR");
+              document.location.reload();
+              clearInterval(interval); // Needed for Chrome to end game
+            }
+          }
+        }
+      }
+    }
+  }
+
+// ゲームクリア判定を行う関数
+function isGameClear() {
+    for(var c=0; c<brickColumnCount; c++) {
+        for(var r=0; r<brickRowCount; r++) {
+            if(bricks[c][r].status == 1) {
+                return false;
+            }
+        }
+    }
+    return true;
+}
+
+// パドルを描画する関数
+function drawPaddle() {
+    ctx.beginPath();
+    ctx.rect(paddleX, canvas.height-paddleHeight, paddleWidth, paddleHeight);
+    ctx.fillStyle = "#0095DD";
+    ctx.fill();
+    ctx.closePath();
+}
+
+// キーボードのキーを押したときのイベントハンドラ
+function keyDownHandler(e) {
+    if(e.key == "Right" || e.key == "ArrowRight") {
+        rightPressed = true;
+    }
+    else if(e.key == "Left" || e.key == "ArrowLeft") {
+        leftPressed = true;
+    }
+}
+
+function keyUpHandler(e) {
+    if(e.key == "Right" || e.key == "ArrowRight") {
+        rightPressed = false;
+    }
+    else if(e.key == "Left" || e.key == "ArrowLeft") {
+        leftPressed = false;
+    }
+}
+  
+// イベントリスナーを追加
+document.addEventListener("keydown", keyDownHandler, false);
+document.addEventListener("keyup", keyUpHandler, false);
