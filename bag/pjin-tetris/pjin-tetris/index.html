@@ -1,0 +1,44 @@
+<!--The referenced article is https://tech.pjin.jp/blog/2021/08/01/js-tetoris/ -->
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>テトリス</title>
+      <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <div id="container">
+      <canvas id="main-canvas"></canvas>
+      <canvas id="next-canvas"></canvas>
+      <div id="howto">
+        <h2>操作方法</h2>
+        <table>
+          <tr>
+            <th>操作</th>
+            <th>キー</th>
+          </tr>
+          <tr>
+            <td>左移動</td>
+            <td>←キー</td>
+          </tr>
+          <tr>
+            <td>右移動</td>
+            <td>→キー</td>
+          </tr>
+          <tr>
+            <td>下移動</td>
+            <td>↓キー</td>
+          </tr>
+          <tr>
+            <td>回転</td>
+            <td>↑キー</td>
+          </tr>
+        </table>
+      </div>
+      <button id="start-btn">開始</button>
+    </div>
+    <script src="tetris.js"></script>
+  </body>
+</html>
