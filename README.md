@@ -1,6 +1,6 @@
 # プレイ方法
 
-[こちら](https://souta-pqr.github.io/GameCollectionRepo/suuji/main.html)をクリックしてください。
+[こちら](https://souta-pqr.github.io/GameCollectionRepo/suuji/kazu_ate.html)をクリックしてください。
 
 # ゲームコレクション
 
