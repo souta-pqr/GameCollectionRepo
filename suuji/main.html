@@ -58,10 +58,35 @@
       <button onclick="backToStart()">ゲーム選択に戻る</button>
     </div>
 
-    <script src="./assets/js/blockGame.js"></script>
-    <script src="./assets/js/numberGame.js"></script>
-    <script src="./assets/js/typingGame.js"></script>
-    <script src="./assets/js/rockPaperScissorsGame.js"></script>
+    <script src="./scripts/blockGame.js"></script>
+    <script src="./scripts/numberGame.js"></script>
+    <script src="./scripts/typingGame.js"></script>
+    <script src="./scripts/rockPaperScissors.js"></script>
 
+    <script>
+      function backToStart() {
+        document.getElementById("gameScreen").style.display = "none";
+        document.getElementById("endScreen").style.display = "none";
+        document.getElementById("rockPaperScissorsScreen").style.display = "none";
+        document.getElementById("rockPaperScissorsEndScreen").style.display = "none";
+        document.getElementById("typingGameScreen").style.display = "none";
+        document.getElementById("blockGameScreen").style.display = "none";
+        document.getElementById("startScreen").style.display = "block";
+        
+        // 数当てゲームのリセット
+        remainingGuesses = 10;
+        document.getElementById("remaining").innerHTML = "残り回数: " + remainingGuesses;
+        lastGuess = null;
+        document.getElementById("history").innerHTML = "前回の予想: なし";
+
+        // タイピングゲームのリセット
+        clearInterval(intervalId);
+        timer = 30;
+        document.getElementById("userInput").value = '';
+
+        // ブロック崩しゲームのリセット
+        clearInterval(interval);
+      }
+    </script>
   </body>
 </html>
