@@ -2,6 +2,35 @@
 <html>
   <head>
     <link rel="stylesheet" type="text/css" href="./assets/css/style.css">
+    <style>
+      body {
+        margin: 0;
+        overflow: hidden;
+        background-color: #f0f0f0;
+      }
+      canvas {
+        display: block;
+        margin: auto;
+        background-color: #fff;
+        border-radius: 10px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      }
+      .game-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+      }
+      .game-info {
+        position: absolute;
+        top: 20px;
+        left: 20px;
+        font-family: Arial, sans-serif;
+        font-size: 18px;
+        color: #333;
+        text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.8);
+      }
+    </style>
   </head>
   <body>
     <div id="startScreen">
@@ -10,6 +39,7 @@
       <button onclick="startRockPaperScissors()">ジャンケンゲームを始める</button>
       <button onclick="startTypingGame()">タイピングゲームを始める</button>
       <button onclick="startBlockGame()">ブロック崩しゲームを始める</button>
+      <button onclick="startPlatformerGame()">プラットフォーマーゲームを始める</button>
     </div>
 
     <div id="gameScreen">
@@ -47,7 +77,7 @@
       <h2>タイピングゲーム</h2>
       <p id="wordToType"></p>
       <input id="userInput" type="text" oninput="checkInput()" />
-      <p id="score">スコア: 0</p>
+      <p id="typingScore">スコア: 0</p>
       <p id="timer">残り時間: 30</p>
       <button onclick="backToStart()">ゲーム選択に戻る</button>
     </div>
@@ -58,10 +88,22 @@
       <button onclick="backToStart()">ゲーム選択に戻る</button>
     </div>
 
-    <script src="./scripts/blockGame.js"></script>
+    <div id="platformerGameScreen" style="display: none;">
+      <div class="game-container">
+        <canvas id="gameCanvas" width="800" height="600"></canvas>
+        <div class="game-info">
+          <p>Score: <span id="platformerScore">0</span></p>
+          <p>Lives: <span id="platformerLives">3</span></p>
+        </div>
+      </div>
+      <button onclick="backToStart()">ゲーム選択に戻る</button>
+    </div>
+
     <script src="./scripts/numberGame.js"></script>
-    <script src="./scripts/typingGame.js"></script>
     <script src="./scripts/rockPaperScissors.js"></script>
+    <script src="./scripts/typingGame.js"></script>
+    <script src="./scripts/blockGame.js"></script>
+    <script src="./scripts/platformerGame.js"></script>
 
     <script>
       function backToStart() {
@@ -71,6 +113,7 @@
         document.getElementById("rockPaperScissorsEndScreen").style.display = "none";
         document.getElementById("typingGameScreen").style.display = "none";
         document.getElementById("blockGameScreen").style.display = "none";
+        document.getElementById("platformerGameScreen").style.display = "none";
         document.getElementById("startScreen").style.display = "block";
         
         // 数当てゲームのリセット
@@ -86,6 +129,16 @@
 
         // ブロック崩しゲームのリセット
         clearInterval(interval);
+
+        // プラットフォーマーゲームのリセット
+        resetPlatformerGame();
+      }
+
+      function startPlatformerGame() {
+        document.getElementById("startScreen").style.display = "none";
+        document.getElementById("platformerGameScreen").style.display = "block";
+        platformerGame.resetGame();
+        platformerGame.loop();
       }
     </script>
   </body>
