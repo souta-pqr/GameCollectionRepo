@@ -4,31 +4,80 @@
     <link rel="stylesheet" type="text/css" href="./assets/css/style.css">
     <style>
       body {
+        font-family: 'Arial', sans-serif;
+        font-size: 20px;
+        background-color: #f4f4f4;
+        color: #333;
         margin: 0;
-        overflow: hidden;
-        background-color: #f0f0f0;
+        padding: 0;
       }
-      canvas {
-        display: block;
-        margin: auto;
-        background-color: #fff;
+
+      h2 {
+        font-size: 30px;
+        color: #444;
+        text-align: center;
+        margin-bottom: 20px;
+      }
+
+      button {
+        background-color: #4CAF50;
+        border: none;
+        color: white;
+        padding: 15px 32px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 10px;
+        cursor: pointer;
+        border-radius: 5px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease;
+      }
+
+      button:hover {
+        background-color: #45a049;
+        box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+        transform: translateY(-2px);
+      }
+
+      #startScreen, #gameScreen, #endScreen, #rockPaperScissorsScreen, #rockPaperScissorsEndScreen, #typingGameScreen, #blockGameScreen, #platformerGameScreen {
+        background-color: white;
+        padding: 30px;
         border-radius: 10px;
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        text-align: center;
+        max-width: 600px;
+        width: 100%;
+        margin: 50px auto;
       }
-      .game-container {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-      }
-      .game-info {
-        position: absolute;
-        top: 20px;
-        left: 20px;
-        font-family: Arial, sans-serif;
+
+      #userInput {
+        padding: 10px;
         font-size: 18px;
-        color: #333;
-        text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.8);
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        margin-top: 20px;
+        width: 100%;
+        max-width: 300px;
+      }
+
+      #wordToType, #typingScore, #timer {
+        font-size: 24px;
+        margin: 10px 0;
+      }
+
+      #rpsResult {
+        font-size: 24px;
+        margin-bottom: 20px;
+      }
+
+      #rpsImage {
+        margin-bottom: 20px;
+      }
+
+      #gameScreen, #endScreen, #rockPaperScissorsScreen, #rockPaperScissorsEndScreen, #typingGameScreen, #blockGameScreen, #platformerGameScreen {
+        display: none;
       }
     </style>
   </head>
@@ -131,13 +180,13 @@
         clearInterval(interval);
 
         // プラットフォーマーゲームのリセット
-        resetPlatformerGame();
+        platformerGame.resetGame();
       }
 
       function startPlatformerGame() {
         document.getElementById("startScreen").style.display = "none";
         document.getElementById("platformerGameScreen").style.display = "block";
-        platformerGame.resetGame();
+        platformerGame.init();
         platformerGame.loop();
       }
     </script>

@@ -1,17 +1,21 @@
 body {
   font-family: 'Arial', sans-serif;
   font-size: 20px;
-  background-color: #f4f4f4; /* 背景色を追加 */
-  color: #333; /* テキストの色を追加 */
+  background-color: #f4f4f4;
+  color: #333;
+  margin: 0;
+  padding: 0;
 }
 
 h2 {
   font-size: 30px;
-  color: #444; /* 見出しの色を少し暗くする */
+  color: #444;
+  text-align: center;
+  margin-bottom: 20px;
 }
 
 button {
-  background-color: #4CAF50; /* ボタンの背景色を追加 */
+  background-color: #4CAF50;
   border: none;
   color: white;
   padding: 15px 32px;
@@ -19,14 +23,86 @@ button {
   text-decoration: none;
   display: inline-block;
   font-size: 16px;
-  margin: 4px 2px;
+  margin: 10px;
   cursor: pointer;
+  border-radius: 5px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
 }
 
-#startScreen {
+button:hover {
+  background-color: #45a049;
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+  transform: translateY(-2px);
+}
+
+#startScreen, #gameScreen, #endScreen, #rockPaperScissorsScreen, #rockPaperScissorsEndScreen, #typingGameScreen, #blockGameScreen {
+  background-color: white;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  max-width: 600px;
+  width: 100%;
+  margin: 50px auto;
+}
+
+.game-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+}
+
+#gameCanvas {
   display: block;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-#gameScreen, #endScreen, #rockPaperScissorsScreen, #rockPaperScissorsEndScreen {
+#userInput {
+  padding: 10px;
+  font-size: 18px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-top: 20px;
+  width: 100%;
+  max-width: 300px;
+}
+
+#wordToType, #typingScore, #timer {
+  font-size: 24px;
+  margin: 10px 0;
+}
+
+#rpsResult {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+#rpsImage {
+  margin-bottom: 20px;
+}
+
+#gameScreen, #endScreen, #rockPaperScissorsScreen, #rockPaperScissorsEndScreen, #typingGameScreen, #blockGameScreen {
   display: none;
+}
+
+#platformerGameScreen {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: transparent;
+  box-shadow: none;
+  margin: 0;
+  padding: 0;
+}
+
+#platformerGameScreen button {
+  margin-top: 20px;
 }
