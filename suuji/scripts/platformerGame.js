@@ -1,3 +1,6 @@
+
+const keys = new Array(256).fill(false);
+
 const platformerGame = (function() {
     let scoreElement;
     let livesElement;
@@ -130,12 +133,15 @@ const platformerGame = (function() {
       lives = 3;
       scoreElement.textContent = score;
       livesElement.textContent = lives;
-  
+    
       coins.forEach(coin => {
         coin.collected = false;
       });
-  
+    
       resetPlayer();
+      
+      // キーボードの入力状態をリセット
+      keys.fill(false);
     }
   
     function draw() {
