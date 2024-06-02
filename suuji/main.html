@@ -1,145 +1,183 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <link rel="stylesheet" type="text/css" href="./assets/css/style.css">
-    <style>
-      body {
-        margin: 0;
-        overflow: hidden;
-        background-color: #f0f0f0;
-      }
-      canvas {
-        display: block;
-        margin: auto;
-        background-color: #fff;
-        border-radius: 10px;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-      }
-      .game-container {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-      }
-      .game-info {
-        position: absolute;
-        top: 20px;
-        left: 20px;
-        font-family: Arial, sans-serif;
-        font-size: 18px;
-        color: #333;
-        text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.8);
-      }
-    </style>
-  </head>
-  <body>
-    <div id="startScreen">
-      <h2>ゲーム選択</h2>
-      <button onclick="startNumberGame()">数当てゲームを始める</button>
-      <button onclick="startRockPaperScissors()">ジャンケンゲームを始める</button>
-      <button onclick="startTypingGame()">タイピングゲームを始める</button>
-      <button onclick="startBlockGame()">ブロック崩しゲームを始める</button>
-      <button onclick="startPlatformerGame()">プラットフォーマーゲームを始める</button>
-    </div>
+ <head>
+   <link rel="stylesheet" type="text/css" href="./assets/css/style.css">
+   <style>
+     body {
+       margin: 0;
+       overflow: hidden;
+       background-color: #f0f0f0;
+     }
+     canvas {
+       display: block;
+       margin: auto;
+       background-color: #fff;
+       border-radius: 10px;
+       box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+     }
+     .game-container {
+       display: flex;
+       justify-content: center;
+       align-items: center;
+       height: 100vh;
+     }
+     .game-info {
+       position: absolute;
+       top: 20px;
+       left: 20px;
+       font-family: Arial, sans-serif;
+       font-size: 18px;
+       color: #333;
+       text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.8);
+     }
+   </style>
+ </head>
+ <body>
+   <div id="startScreen">
+     <h2>ゲーム選択</h2>
+     <button onclick="startNumberGame()">数当てゲームを始める</button>
+     <button onclick="startRockPaperScissors()">ジャンケンゲームを始める</button>
+     <button onclick="startTypingGame()">タイピングゲームを始める</button>
+     <button onclick="startBlockGame()">ブロック崩しゲームを始める</button>
+     <button onclick="startPlatformerGame()">プラットフォーマーゲームを始める</button>
+   </div>
 
-    <div id="gameScreen">
-      <h2>数当てゲーム</h2>
-      <p id="demo"></p>
-      <p id="history">前回の予想: なし</p>
-      <p id="remaining">残り回数: 10</p>
-      <button id="playButton" style="display: none;" onclick="playNumberGame()">予想する</button>
-    </div>
+   <div id="gameScreen">
+     <h2>数当てゲーム</h2>
+     <p id="demo"></p>
+     <p id="history">前回の予想: なし</p>
+     <p id="remaining">残り回数: 10</p>
+     <button id="playButton" style="display: none;" onclick="playNumberGame()">予想する</button>
+   </div>
 
-    <div id="endScreen">
-      <h2>ゲーム終了</h2>
-      <p id="result"></p>
-      <button onclick="restartGame()">もう一度プレイ</button>
-      <button onclick="backToStart()">ゲーム選択に戻る</button>
-    </div>
+   <div id="endScreen">
+     <h2>ゲーム終了</h2>
+     <p id="result"></p>
+     <button onclick="restartGame()">もう一度プレイ</button>
+     <button onclick="backToStart()">ゲーム選択に戻る</button>
+   </div>
 
-    <div id="rockPaperScissorsScreen">
-      <h2>ジャンケンゲーム</h2>
-      <p id="rpsDemo">あなたの手を選んでください。</p>
-      <button id="rockButton" style="display: none;" onclick="playRockPaperScissors('rock')">グー</button>
-      <button id="paperButton" style="display: none;" onclick="playRockPaperScissors('paper')">パー</button>
-      <button id="scissorsButton" style="display: none;" onclick="playRockPaperScissors('scissors')">チョキ</button>
-    </div>
+   <div id="rockPaperScissorsScreen">
+     <h2>ジャンケンゲーム</h2>
+     <p id="rpsDemo">あなたの手を選んでください。</p>
+     <button id="rockButton" style="display: none;" onclick="playRockPaperScissors('rock')">グー</button>
+     <button id="paperButton" style="display: none;" onclick="playRockPaperScissors('paper')">パー</button>
+     <button id="scissorsButton" style="display: none;" onclick="playRockPaperScissors('scissors')">チョキ</button>
+   </div>
 
-    <div id="rockPaperScissorsEndScreen">
-      <h2>ゲーム終了</h2>
-      <p id="rpsResult"></p>
-      <img id="rpsImage" src="" alt="Computer's choice" width="100" height="100">
-      <button onclick="restartRockPaperScissors()">もう一度プレイ</button>
-      <button onclick="backToStart()">ゲーム選択に戻る</button>
-    </div>
+   <div id="rockPaperScissorsEndScreen">
+     <h2>ゲーム終了</h2>
+     <p id="rpsResult"></p>
+     <img id="rpsImage" src="" alt="Computer's choice" width="100" height="100">
+     <button onclick="restartRockPaperScissors()">もう一度プレイ</button>
+     <button onclick="backToStart()">ゲーム選択に戻る</button>
+   </div>
 
-    <div id="typingGameScreen" style="display: none;">
-      <h2>タイピングゲーム</h2>
-      <p id="wordToType"></p>
-      <input id="userInput" type="text" oninput="checkInput()" />
-      <p id="typingScore">スコア: 0</p>
-      <p id="timer">残り時間: 30</p>
-      <button onclick="backToStart()">ゲーム選択に戻る</button>
-    </div>
+   <div id="typingGameScreen" style="display: none;">
+     <h2>タイピングゲーム</h2>
+     <p id="wordToType"></p>
+     <input id="userInput" type="text" oninput="checkInput()" />
+     <p id="typingScore">スコア: 0</p>
+     <p id="timer">残り時間: 30</p>
+     <button onclick="backToStart()">ゲーム選択に戻る</button>
+   </div>
 
-    <div id="blockGameScreen" style="display: none;">
-      <h2>ブロックゲーム</h2>
-      <canvas id="blockGameCanvas" width="480" height="320"></canvas>
-      <button onclick="backToStart()">ゲーム選択に戻る</button>
-    </div>
+   <div id="blockGameScreen" style="display: none;">
+     <h2>ブロックゲーム</h2>
+     <canvas id="blockGameCanvas" width="480" height="320"></canvas>
+     <button onclick="backToStart()">ゲーム選択に戻る</button>
+   </div>
 
-    <div id="platformerGameScreen" style="display: none;">
-      <div class="game-container">
-        <canvas id="gameCanvas" width="800" height="600"></canvas>
-        <div class="game-info">
-          <p>Score: <span id="platformerScore">0</span></p>
-          <p>Lives: <span id="platformerLives">3</span></p>
-        </div>
-      </div>
-      <button onclick="backToStart()">ゲーム選択に戻る</button>
-    </div>
+   <div id="platformerGameScreen" style="display: none;">
+     <div class="game-container">
+       <canvas id="gameCanvas" width="800" height="600"></canvas>
+       <div class="game-info">
+         <p>Score: <span id="platformerScore">0</span></p>
+         <p>Lives: <span id="platformerLives">3</span></p>
+       </div>
+     </div>
+     <button onclick="backToStart()">ゲーム選択に戻る</button>
+   </div>
 
-    <script src="./scripts/numberGame.js"></script>
-    <script src="./scripts/rockPaperScissors.js"></script>
-    <script src="./scripts/typingGame.js"></script>
-    <script src="./scripts/blockGame.js"></script>
-    <script src="./scripts/platformerGame.js"></script>
+   <script src="./scripts/numberGame.js"></script>
+   <script src="./scripts/rockPaperScissors.js"></script>
+   <script src="./scripts/blockGame.js"></script>
+   <script src="./scripts/platformerGame.js"></script>
 
-    <script>
-      function backToStart() {
-        document.getElementById("gameScreen").style.display = "none";
-        document.getElementById("endScreen").style.display = "none";
-        document.getElementById("rockPaperScissorsScreen").style.display = "none";
-        document.getElementById("rockPaperScissorsEndScreen").style.display = "none";
-        document.getElementById("typingGameScreen").style.display = "none";
-        document.getElementById("blockGameScreen").style.display = "none";
-        document.getElementById("platformerGameScreen").style.display = "none";
-        document.getElementById("startScreen").style.display = "block";
-        
-        // 数当てゲームのリセット
-        remainingGuesses = 10;
-        document.getElementById("remaining").innerHTML = "残り回数: " + remainingGuesses;
-        lastGuess = null;
-        document.getElementById("history").innerHTML = "前回の予想: なし";
+   <script>
+     var words = ['apple', 'banana', 'cherry', 'date', 'elderberry', 'fig', 'grape', 'honeydew', 'kiwi', 'lemon', 'mango', 'nectarine', 'orange', 'peach', 'plum', 'quince', 'raspberry', 'strawberry', 'tangerine', 'watermelon', 'xigua', 'yuzu', 'zucchini']; 
+     var currentWord = ''; 
+     var score = 0; 
+     var timer = 30; 
+     var intervalId;
 
-        // タイピングゲームのリセット
-        clearInterval(intervalId);
-        timer = 30;
-        document.getElementById("userInput").value = '';
+     function startTypingGame() { 
+       document.getElementById("startScreen").style.display = "none"; 
+       document.getElementById("typingGameScreen").style.display = "block"; 
+       currentWord = words[Math.floor(Math.random() * words.length)]; 
+       document.getElementById("wordToType").innerHTML = currentWord; 
+       score = 0; 
+       timer = 30; 
+       document.getElementById("typingScore").innerHTML = "スコア: " + score; 
+       document.getElementById("timer").innerHTML = "残り時間: " + timer; 
+       intervalId = setInterval(updateTimer, 1000); 
+     }
 
-        // ブロック崩しゲームのリセット
-        clearInterval(interval);
+     function checkInput() { 
+       var userInput = document.getElementById("userInput").value; 
+       if(userInput === currentWord) { 
+         score++; 
+         document.getElementById("typingScore").innerHTML = "スコア: " + score; 
+         document.getElementById("userInput").value = ''; 
+         currentWord = words[Math.floor(Math.random() * words.length)]; 
+         document.getElementById("wordToType").innerHTML = currentWord; 
+       } 
+     }
 
-        // プラットフォーマーゲームのリセット
-        resetPlatformerGame();
-      }
+     function updateTimer() { 
+       timer--; 
+       document.getElementById("timer").innerHTML = "残り時間: " + timer; 
+       if(timer <= 0) { 
+         clearInterval(intervalId); 
+         alert('時間切れ！あなたのスコアは ' + score + ' です！'); 
+         backToStart(); 
+       } 
+     }
 
-      function startPlatformerGame() {
-        document.getElementById("startScreen").style.display = "none";
-        document.getElementById("platformerGameScreen").style.display = "block";
-        platformerGame.resetGame();
-        platformerGame.loop();
-      }
-    </script>
-  </body>
+     function backToStart() {
+       document.getElementById("gameScreen").style.display = "none";
+       document.getElementById("endScreen").style.display = "none";
+       document.getElementById("rockPaperScissorsScreen").style.display = "none";
+       document.getElementById("rockPaperScissorsEndScreen").style.display = "none";
+       document.getElementById("typingGameScreen").style.display = "none";
+       document.getElementById("blockGameScreen").style.display = "none";
+       document.getElementById("platformerGameScreen").style.display = "none";
+       document.getElementById("startScreen").style.display = "block";
+       
+       // 数当てゲームのリセット
+       remainingGuesses = 10;
+       document.getElementById("remaining").innerHTML = "残り回数: " + remainingGuesses;
+       lastGuess = null;
+       document.getElementById("history").innerHTML = "前回の予想: なし";
+
+       // タイピングゲームのリセット
+       clearInterval(intervalId);
+       timer = 30;
+       document.getElementById("userInput").value = '';
+
+       // ブロック崩しゲームのリセット
+       clearInterval(interval);
+
+       // プラットフォーマーゲームのリセット
+       resetPlatformerGame();
+     }
+
+     function startPlatformerGame() {
+       document.getElementById("startScreen").style.display = "none";
+       document.getElementById("platformerGameScreen").style.display = "block";
+       platformerGame.resetGame();
+       platformerGame.loop();
+     }
+   </script>
+ </body>
 </html>
