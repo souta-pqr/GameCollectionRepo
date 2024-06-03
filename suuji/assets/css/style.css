@@ -106,3 +106,26 @@ button:hover {
 #platformerGameScreen button {
   margin-top: 20px;
 }
+
+.game-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  color: white;
+}
+
+.game-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  max-width: 800px;
+  font-family: 'Arial', sans-serif;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.game-info span {
+  margin: 0 20px;
+}

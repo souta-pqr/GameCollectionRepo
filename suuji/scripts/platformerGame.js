@@ -52,16 +52,14 @@ const platformerGame = (function() {
     ctx = canvas.getContext('2d');
     scoreElement = document.getElementById('platformerScore');
     livesElement = document.getElementById('platformerLives');
-    
+
     // キャンバスのサイズを調整
     canvas.width = 800;
     canvas.height = 600;
-    
-    // 変な四角を消すために、キャンバスの上下のマージンを調整
-    canvas.style.marginTop = '0';
-    canvas.style.marginBottom = '0';
-    
+
     resetGame();
+    updateScoreDisplay();
+    updateLivesDisplay();
   }
  
   function update() {
@@ -118,9 +116,7 @@ const platformerGame = (function() {
       ) {
         coin.collected = true;
         score += 10;
-        if (scoreElement) {
-          scoreElement.textContent = score;
-        }
+        updateScoreDisplay();
       }
     }
  
@@ -141,9 +137,7 @@ const platformerGame = (function() {
     // Fall off the screen
     if (player.y > canvas.height) {
       lives--;
-      if (livesElement) {
-        livesElement.textContent = lives;
-      }
+      updateLivesDisplay();
       resetPlayer();
  
       if (lives === 0) {
@@ -165,12 +159,8 @@ const platformerGame = (function() {
   function resetGame() {
     score = 0;
     lives = 3;
-    if (scoreElement) {
-      scoreElement.textContent = score;
-    }
-    if (livesElement) {
-      livesElement.textContent = lives;
-    }
+    updateScoreDisplay();
+    updateLivesDisplay();
  
     coins.forEach(coin => {
       coin.collected = false;
@@ -183,11 +173,23 @@ const platformerGame = (function() {
     scrollY = 0;
   }
  
+  function updateScoreDisplay() {
+    if (scoreElement) {
+      scoreElement.textContent = 'Score: ' + score;
+    }
+  }
+  
+  function updateLivesDisplay() {
+    if (livesElement) {
+      livesElement.textContent = 'Lives: ' + lives;
+    }
+  }
+ 
   function draw() {
     ctx.save();
     ctx.translate(0, scrollY);
     ctx.clearRect(0, -scrollY, canvas.width, canvas.height);
- 
+
     // Draw player
     ctx.fillStyle = '#ff0000';
     ctx.fillRect(player.x, player.y, player.width, player.height);
@@ -245,4 +247,4 @@ const platformerGame = (function() {
     loop: loop,
     backToStart: backToStart
   };
- })();
+})();
