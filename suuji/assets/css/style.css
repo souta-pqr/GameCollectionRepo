@@ -129,3 +129,114 @@ button:hover {
 .game-info span {
   margin: 0 20px;
 }
+
+#spaceGameScreen {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #000;
+  z-index: 1000;
+}
+
+.stars {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: -1;
+}
+
+.star {
+  position: absolute;
+  background: #fff;
+  border-radius: 50%;
+  animation: twinkle var(--duration) infinite;
+}
+
+@keyframes twinkle {
+  0%, 100% { opacity: 0.2; }
+  50% { opacity: 1; }
+}
+
+#spacecraft {
+  position: fixed;
+  width: 40px;
+  height: 40px;
+  font-size: 30px;
+  pointer-events: none;
+  z-index: 1000;
+  transition: transform 0.1s;
+  transform-origin: center center;
+  user-select: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  will-change: transform;
+}
+
+.game-object {
+  position: absolute;
+  pointer-events: none;
+  will-change: transform;
+  z-index: 3;
+}
+
+.meteor {
+  font-size: 30px;
+}
+
+.star-item {
+  font-size: 24px;
+  color: gold;
+}
+
+#spaceGameScore {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  font-size: 24px;
+  color: #fff;
+  z-index: 2001;
+  pointer-events: none;
+}
+
+#spaceGameOverScreen {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(0, 0, 0, 0.8);
+  padding: 2rem;
+  border-radius: 15px;
+  text-align: center;
+  z-index: 2002;
+  color: white;
+}
+
+/* ゲームオーバー画面のボタンスタイルを追加 */
+#spaceGameOverScreen button {
+  cursor: pointer !important; /* ゲームオーバー画面のボタンは常にポインターカーソルを表示 */
+}
+
+.space-game-active {
+  cursor: none !important;
+}
+
+.space-game-active #spaceGameScreen {
+  cursor: none !important;
+}
+
+/* ゲームオーバー画面は space-game-active の影響を受けないように */
+.space-game-active #spaceGameOverScreen {
+  cursor: default !important;
+}
+
+.space-game-active #spaceGameOverScreen button {
+  cursor: pointer !important;
+}

@@ -90,6 +90,7 @@
       <button onclick="startTypingGame()">タイピングゲームを始める</button>
       <button onclick="startBlockGame()">ブロック崩しゲームを始める</button>
       <button onclick="startPlatformerGame()">プラットフォーマーゲームを始める</button>
+      <button onclick="startSpaceGame()">宇宙探検ゲームを始める</button>
     </div>
 
     <div id="gameScreen">
@@ -151,11 +152,31 @@
       <button onclick="backToStart()">ゲーム選択に戻る</button>
     </div>
 
+    <div id="spaceGameScreen">
+      <div id="spacecraft">🚀</div>
+      <div class="stars"></div>
+      <div id="spaceGameScore">スコア: 0</div>
+      <div id="spaceGameOverScreen">
+          <h2>ゲームオーバー</h2>
+          <p id="spaceFinalScore">最終スコア: 0</p>
+          <button onclick="restartSpaceGame()">もう一度プレイ</button>
+          <button onclick="backToStart()">ゲーム選択に戻る</button>
+      </div>
+    </div>
+
+    <div id="spaceGameOverScreen">
+      <h2>ゲームオーバー</h2>
+      <p id="spaceFinalScore">最終スコア: 0</p>
+      <button onclick="restartSpaceGame()">もう一度プレイ</button>
+      <button onclick="backToStartSpace()">ゲーム選択に戻る</button>
+    </div>
+
     <script src="./scripts/numberGame.js"></script>
     <script src="./scripts/rockPaperScissors.js"></script>
     <script src="./scripts/typingGame.js"></script>
     <script src="./scripts/blockGame.js"></script>
     <script src="./scripts/platformerGame.js"></script>
+    <script src="./scripts/spaceGame.js"></script>
 
     <script>
       function backToStart() {
